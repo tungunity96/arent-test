@@ -1,10 +1,12 @@
 import { create } from "zustand";
-import { useUtilityStore } from "./utilityStore";
 import axios from "axios";
+import { useUtilityStore} from "./utilityStore"
+
 
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 const itemsPerPage = 8;
-const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+
+const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 const setIsLoading = useUtilityStore.getState().setIsLoading;
 
 export const usePostStore = create((set, get) => ({
@@ -12,12 +14,11 @@ export const usePostStore = create((set, get) => ({
   posts: [],
   canLoadMore: true,
   fetchPosts: async () => {
-    setIsLoading(true);
-    try {
+    try{
+      setIsLoading(true);
       const res = await axios.get(
         `${API_ENDPOINT}/posts?_page=${get().page}&_limit=${itemsPerPage}`
       );
-      await sleep(1000);
       if (!res || res.status !== 200) throw new Error("Error occurred!");
       const posts = res.data;
       set({
@@ -25,8 +26,11 @@ export const usePostStore = create((set, get) => ({
         posts: [...get().posts, ...posts],
         canLoadMore: posts.length >= itemsPerPage,
       });
-    } catch (error) {
-      console.error(error.message);
+      
+      //For Testing
+      await sleep(300);
+    } catch (error){
+      console.error(error);
     } finally {
       setIsLoading(false);
     }

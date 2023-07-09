@@ -4,7 +4,7 @@ export const useUtilityStore = create((set, get) => ({
   isLoading: false,
   setIsLoading: (val) =>
     set({
-      loading: val,
+        isLoading: val,
     }),
   isShowSnackbar: false,
   snackbarType: "success",

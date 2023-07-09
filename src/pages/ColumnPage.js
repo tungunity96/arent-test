@@ -2,6 +2,7 @@ import "../styles/ColumnPage.css";
 import { Divider } from "@mui/material";
 import { useEffect } from "react";
 import { usePostStore } from "../store/postStore";
+import { useUtilityStore} from "../store/utilityStore"
 import { shallow } from 'zustand/shallow'
 import Post from "../components/post";
 import ButtonLoadMore from "../components/ButtonLoadMore";
@@ -26,9 +27,8 @@ function ColumnPage() {
     },
   ];
   const [posts, fetchPosts, canLoadMore] = usePostStore((state) => [state.posts, state.fetchPosts, state.canLoadMore], shallow);
-
-  const handleLoadMore = async () => {
-    fetchPosts();
+  const handleLoadMore = () => {
+   fetchPosts()
   };
 
   useEffect(() => {
