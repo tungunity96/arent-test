@@ -4,10 +4,12 @@ import InputAdornment from "@mui/material/InputAdornment";
 import { CiUser, CiLock } from "react-icons/ci";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUserStore } from "../store/userStore";
 
 function LoginPage() {
   const [errorMessage, setErrorMessage] = useState();
   const navigate = useNavigate();
+  const setIsLoggedIn = useUserStore((state) => state.setIsLoggedIn);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -22,10 +24,11 @@ function LoginPage() {
       setErrorMessage("Invalid Password!");
     } else if (
       username.value !== defaultUsername ||
-      password.value != defaultPassword
+      password.value !== defaultPassword
     ) {
       setErrorMessage("Username or Password is invalid!");
     } else {
+      setIsLoggedIn(true);
       navigate("/");
     }
   };

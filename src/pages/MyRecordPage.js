@@ -127,12 +127,9 @@ function MyRecord() {
   ];
 
   const [selectedButton, setSelectedButton] = useState(3);
-  const changeSelectedButton = useCallback(
-    (index) => {
-      setSelectedButton(index);
-    },
-    [selectedButton]
-  );
+  const changeSelectedButton = useCallback((index) => {
+    setSelectedButton(index);
+  }, []);
 
   const renderedButtons = buttons.map((button) => {
     const buttonBgImage = {
