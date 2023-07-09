@@ -4,12 +4,12 @@ import InputAdornment from "@mui/material/InputAdornment";
 import { CiUser, CiLock } from "react-icons/ci";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUserStore } from "../store/userStore";
+import { AuthStore } from "../store/authStore";
 
 function LoginPage() {
   const [errorMessage, setErrorMessage] = useState();
   const navigate = useNavigate();
-  const setIsLoggedIn = useUserStore((state) => state.setIsLoggedIn);
+  const setIsLoggedIn = AuthStore((state) => state.setIsLoggedIn);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -22,10 +22,7 @@ function LoginPage() {
       setErrorMessage("Invalid Username!");
     } else if (!password.value || password.value.trim() === "") {
       setErrorMessage("Invalid Password!");
-    } else if (
-      username.value !== defaultUsername ||
-      password.value !== defaultPassword
-    ) {
+    } else if (username.value !== defaultUsername || password.value !== defaultPassword) {
       setErrorMessage("Username or Password is invalid!");
     } else {
       setIsLoggedIn(true);
@@ -33,9 +30,7 @@ function LoginPage() {
     }
   };
 
-  const renderErrorMessage = errorMessage && (
-    <div className="text-red-500 text-center">{errorMessage}</div>
-  );
+  const renderErrorMessage = errorMessage && <div className="text-red-500 text-center">{errorMessage}</div>;
 
   return (
     <div className="h-screen w-screen bg-gradient-to-r to-primary-400 from-primary-300 flex flex-col justify-center">

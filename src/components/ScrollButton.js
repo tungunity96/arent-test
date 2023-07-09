@@ -24,7 +24,7 @@ function ScrollButton() {
 
   return (
     <div
-      className="w-[48px] h-[48px] rounded-full border-[1px] border-dark-600 fixed right-[36px] bottom-[50%] cursor-pointer flex flex-col justify-center items-center"
+      className="w-[48px] h-[48px] rounded-full border-[1px] border-dark-600 fixed right-[36px] bottom-[50%] cursor-pointer flex flex-col justify-center items-center z-50"
       style={{ display: display ? "flex" : "none" }}
       onClick={scrollToTop}
     >

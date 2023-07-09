@@ -4,10 +4,10 @@ import DefaultLayout from "../layouts/DefaultLayout";
 import Home from "../pages/HomePage";
 import MyRecord from "../pages/MyRecordPage";
 import LoginPage from "../pages/LoginPage";
-import { useUserStore } from "../store/userStore";
+import { AuthStore } from "../store/authStore";
 
 export default function Router() {
-  const isLoggedIn = useUserStore((state) => state.isLoggedIn);
+  const isLoggedIn = AuthStore((state) => state.isLoggedIn);
   return useRoutes([
     {
       path: "/",

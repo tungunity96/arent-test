@@ -237,5 +237,67 @@
       "title": "私の日記の記録が一部表示されます。",
       "content": "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト…"
     }
+  ],
+  "tracker": [
+    {
+      "time": "6月",
+      "bodyWeight": 56,
+      "bodyFat": 30.1
+    },
+    {
+      "time": "7月",
+      "bodyWeight": 56.5,
+      "bodyFat": 30.3
+    },
+    {
+      "time": "8月",
+      "bodyWeight": 56.7,
+      "bodyFat": 30.6
+    },
+    {
+      "time": "9月",
+      "bodyWeight": 57.2,
+      "bodyFat": 30.7
+    },
+    {
+      "time": "10月",
+      "bodyWeight": 56.8,
+      "bodyFat": 30.4
+    },
+    {
+      "time": "11月",
+      "bodyWeight": 55.9,
+      "bodyFat": 29.9
+    },
+    {
+      "time": "12月",
+      "bodyWeight": 55.1,
+      "bodyFat": 29.7
+    },
+    {
+      "time": "1月",
+      "bodyWeight": 55.3,
+      "bodyFat": 29.9
+    },
+    {
+      "time": "2月",
+      "bodyWeight": 54.9,
+      "bodyFat": 29.5
+    },
+    {
+      "time": "3月",
+      "bodyWeight": 54.8,
+      "bodyFat": 29.6
+    },
+    {
+      "time": "4月",
+      "bodyWeight": 55.1,
+      "bodyFat": 30
+    },
+    {
+      "time": "5月",
+      "bodyWeight": 54.9,
+      "bodyFat": 29.7
+    }
   ]
 }

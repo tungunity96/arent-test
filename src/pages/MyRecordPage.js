@@ -1,8 +1,12 @@
-import "../styles/MyRecordPage.css";
 import moment from "moment";
+import { useState, useCallback, useEffect } from "react";
+import { UserStore } from "../store/userStore";
+import { shallow } from "zustand/shallow";
 import LineChart from "../components/line-chart";
-import { useState, useCallback } from "react";
-import { Divider } from "@mui/material";
+import ButtonSection from "../components/ButtonMoveToSection";
+import Excersise from "../components/Excersise";
+import DiaryRecord from "../components/DiaryRecord";
+import ButtonLoadMore from "../components/ButtonLoadMore";
 
 function MyRecord() {
   const buttons = [
@@ -10,21 +14,22 @@ function MyRecord() {
       title: "BODY RECORD",
       subtitle: "自分のカラダの記録",
       image: "MyRecommend-1.jpg",
-      onClickCb: () => {},
+      elementId: "body-record",
     },
     {
       title: "MY EXERCISE",
       subtitle: "自分の運動の記録",
       image: "MyRecommend-2.jpg",
-      onClickCb: () => {},
+      elementId: "my-exercise",
     },
     {
       title: "MY DIARY",
       subtitle: "自分の日記",
       image: "MyRecommend-3.jpg",
-      onClickCb: () => {},
+      elementId: "my-diary",
     },
   ];
+
   const graphButtons = [
     {
       title: "日",
@@ -51,120 +56,41 @@ function MyRecord() {
       },
     },
   ];
-  const exercises = [
-    {
-      title: "家事全般（立位・軽い)",
-      burnedCalo: 26,
-      duration: "10 min",
-    },
-    {
-      title: "家事全般（立位・軽い)",
-      burnedCalo: 26,
-      duration: "10 min",
-    },
-    {
-      title: "家事全般（立位・軽い)",
-      burnedCalo: 26,
-      duration: "10 min",
-    },
-    {
-      title: "家事全般（立位・軽い)",
-      burnedCalo: 26,
-      duration: "10 min",
-    },
-    {
-      title: "家事全般（立位・軽い)",
-      burnedCalo: 26,
-      duration: "10 min",
-    },
-    {
-      title: "家事全般（立位・軽い)",
-      burnedCalo: 26,
-      duration: "10 min",
-    },
-    {
-      title: "家事全般（立位・軽い)",
-      burnedCalo: 26,
-      duration: "10 min",
-    },
-    {
-      title: "家事全般（立位・軽い)",
-      burnedCalo: 26,
-      duration: "10 min",
-    },
-    {
-      title: "家事全般（立位・軽い)",
-      burnedCalo: 26,
-      duration: "10 min",
-    },
-  ];
 
-  const diary = [
-    {
-      createdAt: moment.now(),
-      title: "私の日記の記録が一部表示されます。",
-      content:
-        "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト…",
-    },
-    {
-      createdAt: moment.now(),
-      title: "私の日記の記録が一部表示されます。",
-      content:
-        "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト…",
-    },
-    {
-      createdAt: moment.now(),
-      title: "私の日記の記録が一部表示されます。",
-      content:
-        "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト…",
-    },
-    {
-      createdAt: moment.now(),
-      title: "私の日記の記録が一部表示されます。",
-      content:
-        "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト…",
-    },
-  ];
+  const [fetchDiary, fetchExercises, fetchTracker, diary, exercises, tracker, diaryLoadMore] = UserStore(
+    (state) => [
+      state.fetchDiary,
+      state.fetchExercises,
+      state.fetchTracker,
+      state.diary,
+      state.exercises,
+      state.tracker,
+      state.diaryLoadMore,
+    ],
+    shallow
+  );
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      const promises = [await fetchDiary(), await fetchExercises(), await fetchTracker()];
+      await Promise.all(promises);
+    };
+    fetchUserInfo();
+  }, []);
+
+  const handleLoadMore = () => {
+    fetchDiary();
+  };
 
   const [selectedButton, setSelectedButton] = useState(3);
   const changeSelectedButton = useCallback((index) => {
     setSelectedButton(index);
   }, []);
 
-  const renderedButtons = buttons.map((button) => {
-    const buttonBgImage = {
-      backgroundImage: `url('/img/${button.image}')`,
-      backgroundSize: "cover",
-    };
-    return (
-      <div className="aspect-square bg-primary-300" key={button.title}>
-        <div className="w-full h-full p-6 relative">
-          <div className="w-full h-full bg-black">
-            <div
-              className="w-full h-full mix-blend-luminosity opacity-50"
-              style={buttonBgImage}
-            ></div>
-          </div>
-          <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center">
-            <div className="text-2xl text-primary-300 tracking-wider">
-              {button.title}
-            </div>
-            <div className="w-[160px] h-[24px] bg-primary-400 text-center mt-2 text-light">
-              {button.subtitle}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  });
-
   const renderedGraphButtons = graphButtons.map((button, index) => {
     return (
       <div
         className={`${
-          selectedButton === index
-            ? "bg-primary-300 text-light"
-            : "bg-light text-primary-300"
+          selectedButton === index ? "bg-primary-300 text-light" : "bg-light text-primary-300"
         } w-[56px] text-center rounded-xl cursor-pointer`}
         key={index}
         onClick={() => {
@@ -175,37 +101,9 @@ function MyRecord() {
       </div>
     );
   });
-
-  const renderedExercises = exercises.map((exercise, index) => {
-    return (
-      <div>
-        <div className="flex justify-between" key={index}>
-          <div className="flex">
-            <div>●</div>
-            <div className="ml-2">
-              <div>{exercise.title}</div>
-              <div className="text-primary-300">{exercise.burnedCalo}kcal</div>
-            </div>
-          </div>
-          <div className="text-lg">{exercise.duration}</div>
-        </div>
-        <Divider sx={{ bgcolor: "gray" }} />
-      </div>
-    );
-  });
-
-  const renderedDiary = diary.map((action) => {
-    const date = moment(action.createdAt).format("yyyy.MM.DD");
-    const time = moment(action.createdAt).format("HH:mm");
-    return (
-      <div className="border-2 border-dark-600 aspect-square p-4 flex flex-col">
-        <div className="text-lg">{date}</div>
-        <div className="text-lg">{time}</div>
-        <div>{action.title}</div>
-        <div className="grow">{action.content}</div>
-      </div>
-    );
-  });
+  const renderedButtons = buttons.map((button, index) => <ButtonSection button={button} key={index} />);
+  const renderedExercises = exercises.map((exercise, index) => <Excersise exercise={exercise} key={index} />);
+  const renderedDiary = diary.map((action, index) => <DiaryRecord record={action} key={index} />);
 
   const currentDate = moment().format("yyyy.MM.DD");
   return (
@@ -219,13 +117,10 @@ function MyRecord() {
           </div>
           <div className="text-2xl ml-6">{currentDate}</div>
         </div>
-        <LineChart />
+        <LineChart tracker={tracker} />
         <div className="flex gap-4 mt-2">{renderedGraphButtons}</div>
       </div>
-      <div
-        className="bg-dark-600 text-light px-6 pt-4 pb-6 mt-12"
-        id="my-exercise"
-      >
+      <div className="bg-dark-600 text-light px-6 pt-4 pb-6 mt-12" id="my-exercise">
         <div className="flex items-center">
           <div className="uppercase">
             My <br />
@@ -241,9 +136,11 @@ function MyRecord() {
         <div className="text-2xl">MY DIARY</div>
         <div className="grid grid-cols-4 mt-2 gap-4">{renderedDiary}</div>
       </div>
-      <div className="bg-gradient-to-r to-primary-400 from-primary-300 w-[296px] h-[56px] rounded-md flex justify-center items-center mx-auto mt-8 cursor-pointer">
-        <div className="text-light">記録をもっと見る</div>
-      </div>
+      {diaryLoadMore && (
+        <div className="mt-8">
+          <ButtonLoadMore buttonText="記録をもっと見る" buttonCb={handleLoadMore} />
+        </div>
+      )}
     </div>
   );
 }

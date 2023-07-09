@@ -1,10 +1,10 @@
 import { create } from "zustand";
 
-export const useUtilityStore = create((set, get) => ({
+export const UtilityStore = create((set, get) => ({
   isLoading: false,
   setIsLoading: (val) =>
     set({
-        isLoading: val,
+      isLoading: val,
     }),
   isShowSnackbar: false,
   snackbarType: "success",

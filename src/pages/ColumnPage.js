@@ -1,9 +1,7 @@
-import "../styles/ColumnPage.css";
 import { Divider } from "@mui/material";
 import { useEffect } from "react";
-import { usePostStore } from "../store/postStore";
-import { useUtilityStore} from "../store/utilityStore"
-import { shallow } from 'zustand/shallow'
+import { PostStore } from "../store/postStore";
+import { shallow } from "zustand/shallow";
 import Post from "../components/post";
 import ButtonLoadMore from "../components/ButtonLoadMore";
 
@@ -26,15 +24,17 @@ function ColumnPage() {
       subtitle: "健康",
     },
   ];
-  const [posts, fetchPosts, canLoadMore] = usePostStore((state) => [state.posts, state.fetchPosts, state.canLoadMore], shallow);
+  const [posts, fetchPosts, canLoadMore] = PostStore(
+    (state) => [state.posts, state.fetchPosts, state.canLoadMore],
+    shallow
+  );
   const handleLoadMore = () => {
-   fetchPosts()
+    fetchPosts();
   };
 
   useEffect(() => {
     fetchPosts();
   }, []);
-
 
   const renderedPosts = posts.map((post) => {
     return <Post post={post} key={post.id}></Post>;
@@ -42,12 +42,10 @@ function ColumnPage() {
   const renderedCategories = categories.map((category) => {
     return (
       <div
-        className="category-card bg-dark-600 flex flex-col justify-center items-center p-4"
+        className="h-[144px] bg-dark-600 flex flex-col justify-center items-center p-6"
         key={category.title}
       >
-        <div className="uppercase text-center text-2xl text-primary-300">
-          {category.title}
-        </div>
+        <div className="uppercase text-center text-2xl text-primary-300 font-light">{category.title}</div>
         <div className="w-[56px] my-2">
           <Divider sx={{ bgcolor: "white" }} />
         </div>
@@ -59,12 +57,11 @@ function ColumnPage() {
     <div className="container mx-auto my-12">
       <div className="grid grid-cols-4 gap-10">{renderedCategories}</div>
       <div className="grid grid-cols-4 gap-4 mt-12">{renderedPosts}</div>
-      {canLoadMore && <div className="mt-8">
-        <ButtonLoadMore
-          buttonText="記録をもっと見る"
-          buttonCb={handleLoadMore}
-        />
-      </div>}
+      {canLoadMore && (
+        <div className="mt-8">
+          <ButtonLoadMore buttonText="記録をもっと見る" buttonCb={handleLoadMore} />
+        </div>
+      )}
     </div>
   );
 }
