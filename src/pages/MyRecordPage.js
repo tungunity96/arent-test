@@ -2,7 +2,7 @@ import moment from "moment";
 import { useState, useCallback, useEffect } from "react";
 import { UserStore } from "../store/userStore";
 import { shallow } from "zustand/shallow";
-import LineChart from "../components/line-chart";
+import LineChart from "../components/LineChart";
 import ButtonSection from "../components/ButtonMoveToSection";
 import Excersise from "../components/Excersise";
 import DiaryRecord from "../components/DiaryRecord";

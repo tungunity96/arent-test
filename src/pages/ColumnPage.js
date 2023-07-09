@@ -2,7 +2,7 @@ import { Divider } from "@mui/material";
 import { useEffect } from "react";
 import { PostStore } from "../store/postStore";
 import { shallow } from "zustand/shallow";
-import Post from "../components/post";
+import Post from "../components/Post";
 import ButtonLoadMore from "../components/ButtonLoadMore";
 
 function ColumnPage() {
@@ -34,7 +34,7 @@ function ColumnPage() {
 
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [fetchPosts]);
 
   const renderedPosts = posts.map((post) => {
     return <Post post={post} key={post.id}></Post>;

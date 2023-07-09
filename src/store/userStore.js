@@ -1,18 +1,23 @@
 import { create } from "zustand";
-import axios from "axios";
 import { UtilityStore } from "./utilityStore";
 import { sleep } from "../helper/utils";
+import axios from "axios";
 
 const setIsLoading = UtilityStore.getState().setIsLoading;
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 const recordsPerPage = 8;
 
 export const UserStore = create((set, get) => ({
+  diary: [],
   diaryPage: 1,
   diaryLoadMore: true,
   exercises: [],
-  diary: [],
   tracker: [],
+  achiementRate: 0,
+  dishes: [],
+  dishesPage: 1,
+  dishesLoadMore: false,
+  dishesType: "",
   fetchDiary: async () => {
     try {
       setIsLoading(true);
@@ -59,6 +64,55 @@ export const UserStore = create((set, get) => ({
       const records = res.data;
       set({
         tracker: records,
+      });
+
+      //For Testing
+      await sleep(300);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  },
+  fetchAchivement: async () => {
+    try {
+      setIsLoading(true);
+      const res = await axios.get(`${API_ENDPOINT}/achivement`);
+      if (!res || res.status !== 200) throw new Error("Error occurred!");
+      const achivement = res.data;
+      set({
+        achiementRate: achivement.rate || 0,
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  },
+  fetchDishes: async (type) => {
+    try {
+      setIsLoading(true);
+      if (type && type !== get().dishesType) {
+        set({
+          dishesType: type,
+          dishesPage: 1,
+          dishes: [],
+        });
+      }
+      const res = await axios.get(
+        `${API_ENDPOINT}/dishes?_page=${get().dishesPage}&_limit=${recordsPerPage}`,
+        {
+          params: {
+            ...(get().dishesType ? { type: get().dishesType } : {}),
+          },
+        }
+      );
+      if (!res || res.status !== 200) throw new Error("Error occurred!");
+      const dishes = res.data;
+      set({
+        dishesPage: get().dishesPage + 1,
+        dishes: [...get().dishes, ...dishes],
+        dishesLoadMore: dishes.length >= recordsPerPage,
       });
 
       //For Testing

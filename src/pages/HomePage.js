@@ -1,59 +1,68 @@
 import ProgressImage from "../assets/images/d01.jpg";
-import LineChart from "../components/line-chart.js";
-import ButtonBG from "../assets/components/button-bg.png";
+import LineChart from "../components/LineChart.js";
 import KnifeIcon from "../assets/icons/icon_knife.png";
 import CupIcon from "../assets/icons/icon_cup.png";
-import dishes from "../mock/dishes.json";
+import CategoryButton from "../components/HomeCategoryButton";
+import DishBox from "../components/DishBox";
+import ButtonLoadMore from "../components/ButtonLoadMore";
+import { UserStore } from "../store/userStore";
+import { shallow } from "zustand/shallow";
+import { useEffect } from "react";
 
 function Home() {
-  const buttonStyle = {
-    background: `url(${ButtonBG})`,
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "contain",
-    backgroundPosition: "center center",
-  };
   const categories = [
     {
       title: "Morning",
+      type: "morning",
       icon: KnifeIcon,
     },
     {
       title: "Lunch",
+      type: "lunch",
       icon: KnifeIcon,
     },
     {
       title: "Dinner",
+      type: "dinner",
       icon: CupIcon,
     },
     {
       title: "Snack",
+      type: "snack",
       icon: CupIcon,
     },
   ];
-  const renderedDishes = dishes.map((dish) => {
+
+  const [fetchDishes, fetchAchivement, dishes, dishesLoadMore, achivementRate] = UserStore(
+    (state) => [
+      state.fetchDishes,
+      state.fetchAchivement,
+      state.dishes,
+      state.dishesLoadMore,
+      state.achivementRate,
+    ],
+    shallow
+  );
+  const renderedDishes = dishes.map((dish, index) => <DishBox dish={dish} key={index} />);
+
+  const fetchUserInfo = async () => {
+    const promises = [await fetchDishes(), await fetchAchivement()];
+    await Promise.all(promises);
+  };
+  const handleLoadMore = () => {
+    fetchDishes();
+  };
+  const handleCategoryFilter = (type) => {
+    fetchDishes(type);
+  };
+
+  useEffect(() => {
+    fetchUserInfo();
+  }, []);
+
+  const renderedCategoryButtons = categories.map((category, index) => {
     return (
-      <div className="relative aspect-square" key={dish.image}>
-        <img
-          className="w-full h-full object-cover"
-          src={require(`../assets/images/${dish.image}`)}
-          alt={dish.type}
-        />
-        <div className="absolute bottom-0 left-0 bg-primary-300 w-[120px] py-1 px-2 text-light">
-          <span className="capitalize">{dish.type}</span>.{dish.date}
-        </div>
-      </div>
-    );
-  });
-  const renderedCategoryButtons = categories.map((category) => {
-    return (
-      <div
-        style={buttonStyle}
-        className="w-[136px] h-[136px] flex flex-col justify-center items-center cursor-pointer"
-        key={category.title}
-      >
-        <img src={category.icon} alt="button" />
-        <div className="text-light">{category.title}</div>
-      </div>
+      <CategoryButton category={category} key={index} buttonCb={() => handleCategoryFilter(category.type)} />
     );
   });
   return (
@@ -69,9 +78,11 @@ function Home() {
 
       <div className="flex flex-row justify-center gap-10 py-6">{renderedCategoryButtons}</div>
       <div className="grid grid-cols-4 gap-4">{renderedDishes}</div>
-      <div className="bg-gradient-to-r to-primary-400 from-primary-300 w-[296px] h-[56px] rounded-md flex justify-center items-center mx-auto mt-8 cursor-pointer">
-        <div className="text-light">記録をもっと見る</div>
-      </div>
+      {dishesLoadMore && (
+        <div className="mt-8">
+          <ButtonLoadMore buttonText="記録をもっと見る" buttonCb={handleLoadMore} />
+        </div>
+      )}
     </div>
   );
 }

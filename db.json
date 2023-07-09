@@ -299,5 +299,8 @@
       "bodyWeight": 54.9,
       "bodyFat": 29.7
     }
-  ]
+  ],
+  "achivement": {
+    "rate": 0.75
+  }
 }
