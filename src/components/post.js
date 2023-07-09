@@ -7,7 +7,7 @@ function Post({ post }) {
       </div>
     );
   });
-  const publishedDate = moment(post.createdAt).format("yyyy.mm.DD");
+  const publishedDate = moment(post.createdAt).format("yyyy.MM.DD");
   const publishedTime = moment(post.createdAt).format("HH:mm");
   return (
     <div>
