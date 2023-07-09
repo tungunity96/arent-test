@@ -3,6 +3,7 @@ import ColumnPage from "../pages/ColumnPage";
 import DefaultLayout from "../layouts/DefaultLayout";
 import Home from "../pages/HomePage";
 import MyRecord from "../pages/MyRecordPage";
+import LoginPage from "../pages/LoginPage";
 
 export default function Router() {
   return useRoutes([
@@ -23,6 +24,10 @@ export default function Router() {
           element: <MyRecord />,
         },
       ],
+    },
+    {
+      path: "/login",
+      element: <LoginPage />,
     },
   ]);
 }
