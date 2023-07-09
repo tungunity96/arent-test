@@ -81,7 +81,7 @@ export const UserStore = create((set, get) => ({
       if (!res || res.status !== 200) throw new Error("Error occurred!");
       const achivement = res.data;
       set({
-        achiementRate: achivement.rate || 0,
+        achiementRate: achivement.rate,
       });
     } catch (error) {
       console.error(error);

@@ -111,18 +111,20 @@ function MyRecord() {
       <div className="grid grid-cols-3 gap-10">{renderedButtons}</div>
       <div className="bg-dark-600 text-light px-6 py-4 mt-12" id="body-record">
         <div className="flex items-center">
-          <div className="uppercase">
+          <div className="uppercase font-inter">
             Body <br />
             Record
           </div>
           <div className="text-2xl ml-6">{currentDate}</div>
         </div>
-        <LineChart tracker={tracker} />
+        <div className="max-h-[360px]">
+          <LineChart tracker={tracker} />
+        </div>
         <div className="flex gap-4 mt-2">{renderedGraphButtons}</div>
       </div>
       <div className="bg-dark-600 text-light px-6 pt-4 pb-6 mt-12" id="my-exercise">
         <div className="flex items-center">
-          <div className="uppercase">
+          <div className="uppercase font-inter">
             My <br />
             Exercise
           </div>

@@ -5,8 +5,8 @@ function DiaryRecord({ record }) {
   const time = moment(record.createdAt).format("HH:mm");
   return (
     <div className="border-2 border-dark-600 aspect-square p-4 flex flex-col">
-      <div className="text-lg">{date}</div>
-      <div className="text-lg">{time}</div>
+      <div className="text-lg font-inter">{date}</div>
+      <div className="text-lg font-inter">{time}</div>
       <div>{record.title}</div>
       <div className="grow">{record.content}</div>
     </div>

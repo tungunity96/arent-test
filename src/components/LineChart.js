@@ -21,6 +21,11 @@ const options = {
     },
   },
   scales: {
+    x: {
+      border: {
+        display: false,
+      },
+    },
     y: {
       type: "linear",
       display: false,
@@ -64,11 +69,7 @@ function LineChart({ tracker }) {
     labels,
     datasets: [bodyWeightDataset, bodyFatDataset],
   };
-  return (
-    <div className="max-h-[260px]">
-      <Line options={options} data={data} />;
-    </div>
-  );
+  return <Line options={options} data={data} />;
 }
 
 export default LineChart;

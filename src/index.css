@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+@font-face {
+  font-family: "hiragino-kaku-gothic-pro";
+  src: url("./assets/font/Hiragino_Kaku_Gothic_Pro.otf");
+}
 /* width */
 ::-webkit-scrollbar {
   width: 6px;
@@ -22,4 +29,9 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #ffcc21;
+}
+
+.home-progress-section{
+  background-image: url("./assets/images/main_photo.png");
+  background-size: cover;
 }

@@ -9,6 +9,11 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        inter: ["Inter", "sans-serif"],
+        notoSansJP: ["Noto Sans JP", "sans-serif"],
+        hiragino: ["hiragino-kaku-gothic-pro", "cursive"],
+      },
       colors: {
         light: "#ffffff",
         primary: {

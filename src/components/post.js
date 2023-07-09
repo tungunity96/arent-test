@@ -17,7 +17,7 @@ function Post({ post }) {
           src={require(`../assets/images/${post.image}`)}
           alt={post.title}
         />
-        <div className="absolute bottom-0 left-0 bg-primary-300 px-2 py-0.5 text-light">
+        <div className="absolute bottom-0 left-0 bg-primary-300 px-2 py-0.5 text-light font-inter">
           <span>{publishedDate}</span>
           <span className="ml-3">{publishedTime}</span>
         </div>

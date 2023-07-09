@@ -11,11 +11,10 @@ function CategoryButton({ category, buttonCb }) {
     <div
       style={buttonStyle}
       className="w-[136px] h-[136px] flex flex-col justify-center items-center cursor-pointer"
-      key={category.title}
       onClick={() => buttonCb()}
     >
       <img src={category.icon} alt="button" />
-      <div className="text-light">{category.title}</div>
+      <div className="text-light font-inter">{category.title}</div>
     </div>
   );
 }

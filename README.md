@@ -1,70 +1,52 @@
-# Getting Started with Create React App
+## Development Environment
+|Operation| Version|
+|---------| -------|
+|Nodejs| 14.20.1|
+|npm| 6.14.17|
+|react| 18.2.0|
+|zustand| 4.3.9|
+|axios| 1.4.0|
+|json-server| 0.17.3|
+|chart.js| 4.3.0|
+|@mui/material| 5.13.7|
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## How to Test application
+### Step 1: Run `npm i` to install all packages
+### Step 2: Run `npm run start:server` to start Json Server on localhost with port 3005
+### Step 3: Run `npm run start` to start React Application
+<code>Json Server has to be running while testing React Application</code>
 
-## Available Scripts
+## Problems solving
+### Login Page
+I added Login Page, the idea is that user have to login before access HomePage and MyRecordPage, if user have not logged in, that user will be pushed back to LoginPage. <br/>
+On the other hand, ColumnPage does not require user logged in.<br/>
+Account for login in this application:<br/>
+<b>Username: test</b><br/>
+<b>Password: test</b><br/>
+<code>This account setting can be change in .env fil by modifying REACT_APP_USERNAME and REACT_APP_PASSWORD variables</code>
+<br/>
+As I used Zustand persist plugin to save logged-in state in localStorage, user only have to log-in first time unless user clear browser's cache!
+### Zustand
+I used <b>Zustand</b> which is a small, fast and scalable bearbones state-management solution to handle <b>State Management</b> instead of Redux
 
-In the project directory, you can run:
+For more information: https://github.com/pmndrs/zustand
 
-### `npm start`
+### MockAPI
+Instead of mock data by importing JSON files, I used <b>Json Server</b> to create "fake server" to implement an operation function with API in order to make sure my application's UI is ready for API integration.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+I also created "fake data" for testing so I do not have to call POST method to create ones
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<code>"Fake data" can be found in <b>db.json</b> file and these data can be changed if necessary</code>
 
-### `npm test`
+For more information: https://github.com/typicode/json-server
+### ChartJS
+To create beautiful charts on React with a lot of options for customization, I decided to use ChartJS Library
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+For more information: https://www.chartjs.org/
 
-### `npm run build`
+### Styled Components
+In order to save time, I used <b>Material UI Library</b> for styled components. However, I just used only some of styled components, most of other components are created manually by utilized <b>TailwindCSS</b> Library to decrease development time.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+For more information: 
+<br/>https://mui.com/
+<br/>https://tailwindcss.com/

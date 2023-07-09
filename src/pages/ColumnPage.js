@@ -39,13 +39,12 @@ function ColumnPage() {
   const renderedPosts = posts.map((post) => {
     return <Post post={post} key={post.id}></Post>;
   });
-  const renderedCategories = categories.map((category) => {
+  const renderedCategories = categories.map((category, index) => {
     return (
-      <div
-        className="h-[144px] bg-dark-600 flex flex-col justify-center items-center p-6"
-        key={category.title}
-      >
-        <div className="uppercase text-center text-2xl text-primary-300 font-light">{category.title}</div>
+      <div className="h-[144px] bg-dark-600 flex flex-col justify-center items-center p-6" key={index}>
+        <div className="uppercase text-center text-2xl text-primary-300 font-inter font-light">
+          {category.title}
+        </div>
         <div className="w-[56px] my-2">
           <Divider sx={{ bgcolor: "white" }} />
         </div>

@@ -71,7 +71,7 @@ function Header() {
 
   return (
     <>
-      <div className="bg-dark-600">
+      <div className="bg-dark-500 drop-shadow-xl">
         <div className="container mx-auto flex flex-row items-center justify-between">
           <div className="cursor-pointer" onClick={handleLogoClick}>
             <img src={Logo} alt="logo" />
@@ -81,28 +81,16 @@ function Header() {
               className="flex flex-row cursor-pointer items-center"
               onClick={() => handleChangeRoute("/my-record")}
             >
-              <img
-                className="w-[32px] h-[32px] mr-4"
-                src={MemoIcon}
-                alt="Memo"
-              />
+              <img className="w-[32px] h-[32px] mr-4" src={MemoIcon} alt="Memo" />
               <div>自分の記録</div>
             </div>
             <div className="flex flex-row cursor-pointer items-center">
-              <img
-                className="w-[32px] h-[32px] mr-4"
-                src={ChallengeIcon}
-                alt="Challenge"
-              />
+              <img className="w-[32px] h-[32px] mr-4" src={ChallengeIcon} alt="Challenge" />
               <div>チャレンジ</div>
             </div>
             <div className="flex flex-row cursor-pointer items-center">
               <div className="relative">
-                <img
-                  className="w-[32px] h-[32px] mr-4"
-                  src={InfoIcon}
-                  alt="Info"
-                />
+                <img className="w-[32px] h-[32px] mr-4" src={InfoIcon} alt="Info" />
                 <div className="bg-primary-400 w-[16px] h-[16px] rounded-full absolute top-0 right-[8px] text-center text-xs">
                   1
                 </div>
@@ -111,17 +99,9 @@ function Header() {
             </div>
             <div onClick={handleClick}>
               {!open ? (
-                <img
-                  className="w-[32px] h-[32px]"
-                  src={MenuIcon}
-                  alt="Challenge"
-                />
+                <img className="w-[32px] h-[32px]" src={MenuIcon} alt="Challenge" />
               ) : (
-                <img
-                  className="w-[32px] h-[32px]"
-                  src={CloseIcon}
-                  alt="Close"
-                />
+                <img className="w-[32px] h-[32px]" src={CloseIcon} alt="Close" />
               )}
             </div>
             <Menu
